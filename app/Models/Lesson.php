@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $difficulty
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $is_published
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Segment[] $segments
  * @property-read int|null $segments_count
  * @method static \Illuminate\Database\Eloquent\Builder|Lesson newModelQuery()
@@ -26,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Lesson whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Lesson whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Lesson whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Lesson whereIsPublished($value)
  * @mixin \Eloquent
  */
 class Lesson extends Model
@@ -49,5 +51,6 @@ class Lesson extends Model
         'name',
         'description',
         'difficulty',
+        'is_published',
     ];
 }

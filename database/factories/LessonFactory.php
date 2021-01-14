@@ -25,6 +25,7 @@ class LessonFactory extends Factory
             'name' => ucwords(join(' ', $this->faker->words(rand(2, 5)))),
             'description' => $this->faker->paragraph(),
             'difficulty' => rand(1, 9),
+            'is_published' => (bool)rand(0, 1),
         ];
     }
 }
