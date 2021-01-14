@@ -1,24 +1,78 @@
-# Lumen PHP Framework
+# Playground Sessions Backend Code Exercise (Lumen)
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://img.shields.io/packagist/l/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
+## Scenario
+Take this hypothetical situation.
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+We are making an app for teachers.
+A teacher will select a student to see all lessons, and whether that student completed each lesson.
 
-## Official Documentation
+The apps will get their data from the endpoint:
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+```
+/student-progress/<id>
+```
 
-## Contributing
+Where `<id>` is the user id of the student.
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+You inherit this WIP codebase.
 
-## Security Vulnerabilities
+You remember how the data is structured in the database:
+- Lessons are comprised of several segments.
+- A user can create practice records for a segment.
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+You look over the codebase and realize that several problems exist in this endpoint.
+1. The front-end data structures is coupled to the database structure.
+1. Business rules (eg. whether a user has completed a lesson) would be duplicated by each app.
+1. It is too slow, even with a reasonable amount of practice records.
 
-## License
+Luckily, both front-end developers agree that the endpoint needs to change before it is used.
+You all agree to the following data structure for the response:
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```
+{
+  "lessons": [
+    {
+      "id": 32,
+      "difficulty": "Rookie"
+      "isComplete": true,
+    }
+  ]
+}
+```
+
+## Instructions
+
+Solve all three problems with this codebase.
+
+- Create a separate data structure for the response.
+- Codify the business rules.
+  - A lesson is considered complete if a user has at least one practice record
+with a score of 80%.
+  - Difficulty categories ("Rookie", "Intermediate", "Advanced") are associated with difficulty numbers
+    [1,2,3], [4,5,6], [7,8,9], respectively.
+- Ensure the response time is under 100ms for the given dataset.
+
+Code you write should follow the Single Responsibility Principle (SRP).
+Code should be written in self-contained parts, each having one responsibility.
+For example, application logic (eg. extracting query parameters from a URL)
+should be separate from business logic (eg. determining if a required query parameter was supplied).
+
+You have full reign over the codebase.  You can include require additional packages with composer.
+You could get rid of Eloquent ORM and use a different approach, or even pull in a different ORM.
+You don't even have to use Lumen, or this project, if you think you could solves these problems
+faster in a different codebase.
+
+Everything is fair game.
+
+If you have a particular strength (say documenting APIs), feel free show it off.
+
+You might benefit from knowing that each of the 3 problems can be solved without 
+needing to pre-calculate or cache results beforehand.
+
+Like any other business request, there may be an edge case you encounter which could use some additional clarity
+or maybe you are thinking about a particular approach, and you want some feedback.  Communication is key to good code.
+Feel free to ask.
+
+## Deliverables
+
+Email ben@playgroundsessions.com with a link to your git repository.
