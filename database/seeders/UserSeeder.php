@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
-    const QTY = 5;
+    const QTY = 2;
 
     public function run(): void
     {
