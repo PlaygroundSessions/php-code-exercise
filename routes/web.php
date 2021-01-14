@@ -22,9 +22,9 @@ $router->get('/', function () use ($router) {
 
 $router->get('/student-progress/{userId}', function(int $userId) {
     return Lesson::with(['segments','segments.practiceRecords' => function(HasMany $query) use ($userId) {
-        $query->where('user_id', '=', $userId);
+        $query->where('user_id', $userId);
     }])
-        ->where('difficulty', '>=', 1)
+        ->where('is_published',true)
         ->get()
         ->toArray();
 });
