@@ -50,8 +50,7 @@ Solve all three problems with this codebase.
 with a score of 80%.
   - Difficulty categories ("Rookie", "Intermediate", "Advanced") are associated with difficulty numbers
     [1,2,3], [4,5,6], [7,8,9], respectively.
-- Ensure the response time is under 100ms for the given dataset.
-Be mindful of response times.  As the dataset becomes larger, this api endpoint should scale well.
+- Ensure the response time is under 100ms for the given dataset.  Right now it responds in about 2 seconds.
 
 Code should be clean.
 Code you write should follow the Single Responsibility Principle (SRP).
