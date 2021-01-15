@@ -63,6 +63,8 @@ For example, you could use a different ORM, or even a different framework, if yo
 
 Everything is fair game.
 
+We are testing your ability to organize code cleanly, with SRP, not your knowledge of the Laravel/Lumen frameworks.
+
 Try to commit often and with small changes, so we can see what you are doing.
 
 If you have a particular strength (say documenting APIs), feel free show it off.
