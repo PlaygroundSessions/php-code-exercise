@@ -6,13 +6,13 @@ Take this hypothetical situation.
 We are making an app for teachers.
 A teacher will select a student to see all lessons, and whether that student completed each lesson.
 
-The apps will get their data from the endpoint:
+The apps will get their data from the JSON REST API endpoint:
 
 ```
-/student-progress/<id>
+/student-progress/{userId}
 ```
 
-Where `<id>` is the user id of the student.
+Where `{userId}` is the user id of the student.
 
 You inherit this WIP codebase.
 
@@ -51,18 +51,20 @@ with a score of 80%.
   - Difficulty categories ("Rookie", "Intermediate", "Advanced") are associated with difficulty numbers
     [1,2,3], [4,5,6], [7,8,9], respectively.
 - Ensure the response time is under 100ms for the given dataset.
+Be mindful of response times.  As the dataset becomes larger, this api endpoint should scale well.
 
+Code should be clean.
 Code you write should follow the Single Responsibility Principle (SRP).
 Code should be written in self-contained parts, each having one responsibility.
 For example, application logic (eg. extracting query parameters from a URL)
 should be separate from business logic (eg. determining if a required query parameter was supplied).
 
-You have full reign over the codebase.  You can include require additional packages with composer.
-You could get rid of Eloquent ORM and use a different approach, or even pull in a different ORM.
-You don't even have to use Lumen, or this project, if you think you could solves these problems
-faster in a different codebase.
+You have full reign over the codebase. You can add or remove any packages you like. 
+For example, you could use a different ORM, or even a different framework, if you think that would be quicker for you.
 
 Everything is fair game.
+
+Try to commit often and with small changes, so we can see what you are doing.
 
 If you have a particular strength (say documenting APIs), feel free show it off.
 
