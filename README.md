@@ -114,9 +114,6 @@ we provide two approaches to quickly setup a fully operational development envir
 1. Initialize a git repository, and create an initial commit.
 
 1. It should take about 2 seconds to load [http://localhost/student-progress/1](http://localhost/student-progress/1)
-   NOTE: After initially creating the containers,
-   you may need to wait for about 30 seconds,
-   until any "Connection refused" errors subside, before the MySQL server starts accepting connections.
    
 1. Should you want to change something about this setup, you can do so without losing any source files.
    1. Stop and remove all the containers in this project.
