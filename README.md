@@ -79,3 +79,92 @@ Feel free to ask.
 ## Deliverables
 
 Email ben@playgroundsessions.com with a link to your git repository.
+
+## Getting Started
+
+For your convenience,
+we provide two approaches to quickly setup a fully operational development environment with php8.0-fpm, nginx, and mysql8.
+- Docker for Windows or MacOS
+- Ansible for Linux
+
+### Docker for Windows or MacOS
+
+1. Ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop) installed.
+   
+1. Get the code for this exercise by using the Composer `create-project` command.
+   
+   - For Windows
+   ```
+   docker run --rm --volume ${pwd}:/app composer create-project --prefer-dist playground-sessions/code-exercise my-exercise
+   ```
+   - For MacOS
+   ```
+   docker run --rm --volume $pwd:/app composer create-project --prefer-dist playground-sessions/code-exercise my-exercise
+   ```
+
+1. Run docker compose, from the root of the new `my-exercise` folder.
+
+   Make sure that no services (eg. Apache, Nginx, etc.) are listening on ports 80, 443, 9000, 3306, 6379, or 9000.
+   ```
+   docker-compose build && docker-compose up -d
+   ``` 
+
+1. You should now see the text `Lumen (8.2.1) (Laravel Components ^8.0)` at [http://localhost](http://localhost)
+
+1. Initialize a git repository, and create an initial commit.
+
+1. It should take about 2 seconds to load [http://localhost/student-progress/1](http://localhost/student-progress/1)
+   NOTE: After initially creating the containers,
+   you may need to wait for about 30 seconds,
+   until any "Connection refused" errors subside, before the MySQL server starts accepting connections.
+   
+1. Should you want to change something about this setup, you can do so without losing any source files.
+   1. Stop and remove all the containers in this project.
+   ```
+   docker-compose down
+   ```
+   1. Rebuild and run the containers.
+   ```
+   docker-compose build && docker-compose up -d
+   ```
+   
+### Ansible for Linux
+
+These instructions are created for a fresh installation of Ubuntu 20.04.
+Feel free to modify them if you are more comfortable with another Linux distribution.
+
+1. Install ansible and composer.
+   ```
+   sudo apt install ansible composer
+   ```
+   
+1. Get the code for this exercise by using the Composer `create-project` command.
+   ```
+   composer create-project --prefer-dist playground-sessions/code-exercise my-exercise   
+   ```
+
+1. Initialize a git repository, and create an initial commit.
+   
+1. Run the playbook.
+   ```
+   ansible-playbook ansible/setup-development-environment --ask-become-pass
+   ```
+   When asked, enter the password for sudo.
+
+1. You can serve the project locally, using the built-in PHP development server.
+   ```
+   php -S localhost:8000 -t public
+   ```
+
+1. You should now see the text `Lumen (8.2.1) (Laravel Components ^8.0)` at [http://localhost:8000](http://localhost:8000)
+
+1. It should take about 2 seconds to load [http://localhost:8000/student-progress/1](http://localhost:8000/student-progress/1)
+
+### Additional Information
+
+Your MySQL credentials have been randomized.  Should you want them, 
+they are inside the `.env` file in the root of the `my-exercise` directory.
+
+## Go!
+
+Feel free to reach out with questions about setting up this environment.  We look forward to seeing your code! 

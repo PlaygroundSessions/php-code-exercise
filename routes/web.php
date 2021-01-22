@@ -16,7 +16,9 @@
 use App\Models\Lesson;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-$router->get('/', fn() => $router->app->version());
+$router->get('/', function () use ($router) {
+    return $router->app->version();
+});
 
 $router->get('/student-progress/{userId}', function(int $userId) {
     return Lesson::with(['segments','segments.practiceRecords' => function(HasMany $query) use ($userId) {
