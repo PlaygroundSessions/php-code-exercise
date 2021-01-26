@@ -87,6 +87,8 @@ we provide two approaches to quickly setup a fully operational development envir
 - Docker for Windows or MacOS
 - Ansible for Linux
 
+Feel free to reach out with questions about setting up this environment.
+
 ### Docker for Windows or MacOS
 
 1. Ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop) installed.
@@ -164,4 +166,4 @@ they are inside the `.env` file in the root of the `my-exercise` directory.
 
 ## Go!
 
-Feel free to reach out with questions about setting up this environment.  We look forward to seeing your code! 
+We look forward to seeing your code! 
