@@ -89,24 +89,76 @@ we provide two approaches to quickly setup a fully operational development envir
 
 Feel free to reach out with questions about setting up this environment.
 
-### Docker for Windows or MacOS
+### Docker for Windows, with PowerShell
 
 1. Ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop) installed.
    
-1. Get the code for this exercise by using the Composer `create-project` command.
+1. Inside a blank folder, get the code for this exercise by using the Composer `create-project` command.
+
+   ```
+   docker run --rm --volume ${pwd}:/app composer create-project --prefer-dist playground-sessions/code-exercise .
+   ```
    
-   - For Windows
+1. Remove the `vendor\bin` directory, to avoid some weird, Windows-specific, symlink bugs.  (Don't worry, we will recreate these later.)
    ```
-   docker run --rm --volume ${pwd}:/app composer create-project --prefer-dist playground-sessions/code-exercise my-exercise
+   rm -r vendor/bin
    ```
-   - For MacOS
+
+1. Run docker compose, to create and run all the docker containers in this environment.
+   
+   Make sure that any services (eg. Apache, Nginx, etc.) which normally listen
+   on ports 80, 443, 3306, 6379, or 9000 are not running.
    ```
-   docker run --rm --volume $pwd:/app composer create-project --prefer-dist playground-sessions/code-exercise my-exercise
+   docker-compose up -d --build
+   ```
+   
+1. Recreate your `vendor\bin` folder.
+   ```
+   docker run --rm --volume ${pwd}:/app composer install
+   ```
+
+1. You should now see the text `Lumen (8.2.1) (Laravel Components ^8.0)` at [http://localhost](http://localhost)
+
+1. Initialize a git repository, and create an initial commit.
+
+1. It should take about 2 seconds to load [http://localhost/student-progress/1](http://localhost/student-progress/1)
+
+1. The development environment is all set up!
+
+FAQs
+
+1. How do I reset this docker setup, without losing any of my code?
+    1. Stop and remove all the containers in this project.
+   ```
+   docker-compose down
+   ```
+    1. Remove symlinks, rebuild containers, and rebuild symlinks.
+   ```
+   rm -r vendor/bin
+   docker-compose up -d --build
+   docker run --rm --volume ${pwd}:/app composer install
+   ```
+
+1. How do I run vendor binaries, like phpunit?
+   You can run vendor binaries like phpunit within the container.
+   ```
+   docker exec -it app-php /application/vendor/bin/phpunit
+   ```
+   To execute another binary, replace "phpunit" with the name of the binary.
+
+### Docker for MacOS
+
+1. Ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop) installed.
+   
+1. Inside a blank directory, get the code for this exercise by using the Composer `create-project` command.
+   ```
+   docker run --rm --volume $pwd:/app composer create-project --prefer-dist playground-sessions/code-exercise .
    ```
 
 1. Run docker compose, from the root of the new `my-exercise` folder.
 
-   Make sure that no services (eg. Apache, Nginx, etc.) are listening on ports 80, 443, 9000, 3306, 6379, or 9000.
+   Make sure that any services (eg. Apache, Nginx, etc.) which normally listen
+   on ports 80, 443, 3306, 6379, or 9000 are not running.
    ```
    docker-compose up -d --build
    ``` 
@@ -116,33 +168,41 @@ Feel free to reach out with questions about setting up this environment.
 1. Initialize a git repository, and create an initial commit.
 
 1. It should take about 2 seconds to load [http://localhost/student-progress/1](http://localhost/student-progress/1)
-   
-1. Should you want to change something about this setup, you can do so without losing any source files.
-   1. Stop and remove all the containers in this project.
+
+1. The development environment is all set up!
+
+FAQs
+
+1. How do I reset this docker setup, without losing any of my code?
+    1. Stop and remove all the containers in this project.
    ```
    docker-compose down
    ```
-   1. Rebuild and run the containers.
+    1. Rebuild containers.
    ```
    docker-compose up -d --build
    ```
+
+1. How do I run vendor binaries, like phpunit?
+   You can run vendor binaries like phpunit within the container.
+   ```
+   docker exec -it app-php /application/vendor/bin/phpunit
+   ```
+   To execute another binary, replace "phpunit" with the name of the binary.
    
 ### Ansible for Linux
 
-These instructions are created for a fresh installation of Ubuntu 20.04.
-Feel free to modify them if you are more comfortable with another Linux distribution.
+These instructions are created for use with a fresh installation of Ubuntu 20.04.
 
 1. Install ansible and composer.
    ```
    sudo apt install ansible composer
    ```
    
-1. Get the code for this exercise by using the Composer `create-project` command.
+1. Inside a blank directory, get the code for this exercise by using the Composer `create-project` command.
    ```
-   composer create-project --prefer-dist playground-sessions/code-exercise my-exercise   
+   composer create-project --prefer-dist playground-sessions/code-exercise .   
    ```
-
-1. Initialize a git repository, and create an initial commit.
    
 1. Run the playbook.
    ```
@@ -157,7 +217,13 @@ Feel free to modify them if you are more comfortable with another Linux distribu
 
 1. You should now see the text `Lumen (8.2.1) (Laravel Components ^8.0)` at [http://localhost:8000](http://localhost:8000)
 
+1. Initialize a git repository, and create an initial commit.
+
 1. It should take about 2 seconds to load [http://localhost:8000/student-progress/1](http://localhost:8000/student-progress/1)
+
+1. The development environment is all set up!
+
+[Do It Yourself](readme/diy.md)
 
 ### Additional Information
 
