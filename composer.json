@@ -38,6 +38,6 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "@randomize-database-credentials"
         ],
-        "randomize-database-credentials": "php -r 'include \"CredentialRandomizer.php\"; CredentialRandomizer::setDatabasePasswordInEnvironmentFile();'"
+        "randomize-database-credentials": "php -r \"include 'CredentialRandomizer.php'; CredentialRandomizer::setDatabasePasswordInEnvironmentFile();\""
     }
 }
