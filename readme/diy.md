@@ -2,9 +2,9 @@
 
 You can use a pre-existing development environment.
 
-This might be the best option if you
-- Do not want to use Docker
-- Are comfortable sharing your development environment with multiple projects
+This might be the best option for you if you
+- Do not want to use Docker and
+- Are comfortable sharing your development environment with multiple projects.
   
 These instructions assume you already have PHP, Composer, and MySQL installed
 
