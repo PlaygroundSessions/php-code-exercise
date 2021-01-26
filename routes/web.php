@@ -13,18 +13,8 @@
 |
 */
 
-use App\Models\Lesson;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/student-progress/{userId}', function(int $userId) {
-    return Lesson::with(['segments','segments.practiceRecords' => function(HasMany $query) use ($userId) {
-        $query->where('user_id', $userId);
-    }])
-        ->where('is_published',true)
-        ->get()
-        ->toArray();
-});
+$router->get('/student-progress/{userId}', 'StudentProgressController@get');
