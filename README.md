@@ -106,7 +106,7 @@ we provide two approaches to quickly setup a fully operational development envir
 
    Make sure that no services (eg. Apache, Nginx, etc.) are listening on ports 80, 443, 9000, 3306, 6379, or 9000.
    ```
-   docker-compose build && docker-compose up -d
+   docker-compose up -d --build
    ``` 
 
 1. You should now see the text `Lumen (8.2.1) (Laravel Components ^8.0)` at [http://localhost](http://localhost)
@@ -122,7 +122,7 @@ we provide two approaches to quickly setup a fully operational development envir
    ```
    1. Rebuild and run the containers.
    ```
-   docker-compose build && docker-compose up -d
+   docker-compose up -d --build
    ```
    
 ### Ansible for Linux
