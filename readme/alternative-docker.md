@@ -1,4 +1,4 @@
-### Alternate Docker Setup for Windows
+### Alternate Docker Setup (Windows or MacOS)
 
 WARNING: This is not the recommended approach, because it introduces potential confusion and duplication.
 
@@ -6,7 +6,7 @@ How? After going through this process, you will have php executables, running in
 with different extensions, and you may need to understand which actions use which instances of php. 
 
 We recommend against using these instructions, unless you
-- Already have `php.exe` and Composer installed on your Windows Machine and
+- Already have PHP and Composer installed on your machine and
 - Are comfortable with Docker fundamentals
 
 ### Instructions

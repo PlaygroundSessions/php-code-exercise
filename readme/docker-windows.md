@@ -62,8 +62,8 @@ This is the recommended approach to set up your development environment if you u
 
 1. Why can't I run vendor binaries from Windows?
    
-   Because symlinks.
+   This is a result of the way NTFS handles symlinks.
    
    If you really want to do this,
-   you can use the [alternate docker setup for Windows](alternate-docker-windows.md).
+   you can use the [alternate docker setup](alternative-docker.md).
    You will be able to run vendor binaries from both Windows and Docker containers, with that approach.
