@@ -1,12 +1,12 @@
 ## Do It Yourself
 
-You can use a pre-existing development environment.
+If you already have a development environment that you share with other projects (eg. Homestead), you can use that.
 
 This might be the best option for you if you
 - Do not want to use Docker and
 - Are comfortable sharing your development environment with multiple projects.
   
-These instructions assume you already have PHP, Composer, and MySQL installed
+These instructions assume you already have PHP, Composer, and MySQL installed.
 
 1. Inside a blank directory, get the code for this exercise by using the Composer `create-project` command.
    ```
