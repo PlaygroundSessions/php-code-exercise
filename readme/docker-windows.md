@@ -4,12 +4,13 @@ This is the recommended approach to set up your development environment if you u
 
 ### Instructions
 
-1. Ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop) installed.
+1. Ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop) 3.1.0 or higher installed.
+   Allow the installer to take you through the process of using WSL2.
    
 1. Inside a blank folder, get the code for this exercise by using the Composer `create-project` command.
 
    ```
-   docker run --rm --volume ${pwd}:/app composer create-project --prefer-dist playground-sessions/code-exercise .
+   docker run --rm --volume ${pwd}:/app composer create-project --prefer-dist playground-sessions/php-code-exercise .
    ```
    
 1. Remove the `vendor\bin` directory, to avoid some weird, Windows-specific, symlink issues.  (Don't worry, we will recreate these later.)

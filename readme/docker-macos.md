@@ -4,11 +4,11 @@ This is the recommended approach to set up your development environment if you h
 
 ### Instructions
 
-1. Ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop) installed.
+1. Ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop) 3.1.0 or higher installed.
    
 1. Inside a blank directory, get the code for this exercise by using the Composer `create-project` command.
    ```
-   docker run --rm --volume $pwd:/app composer create-project --prefer-dist playground-sessions/code-exercise .
+   docker run --rm --volume $pwd:/app composer create-project --prefer-dist playground-sessions/php-code-exercise .
    ```
 
 1. Run docker compose, to create and run all the docker containers in this environment.

@@ -99,8 +99,8 @@ Feel free to reach out with questions about setting up your environment.
 
 ### Additional Information
 
-Your MySQL credentials have been randomized.  Should you want them, 
-they are inside the `.env` file in the root of the `my-exercise` directory.
+Your MySQL credentials have been randomized during the `create-project` process.  Should you want them, 
+they are inside the `.env` file in the root folder.
 
 ## Go!
 

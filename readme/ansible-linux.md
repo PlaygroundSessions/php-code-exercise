@@ -23,7 +23,7 @@ since the playbook attempts to set the password for the root mysql account!
    
 1. Inside a blank directory, get the code for this exercise by using the Composer `create-project` command.
    ```
-   composer create-project --prefer-dist playground-sessions/code-exercise .   
+   composer create-project --prefer-dist playground-sessions/php-code-exercise .   
    ```
    
 1. Run the playbook.

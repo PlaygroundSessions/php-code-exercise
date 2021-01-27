@@ -11,12 +11,12 @@ We recommend against using these instructions, unless you
 
 ### Instructions
 
-1. Ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop) installed.
+1. Ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop) 3.1.0 or higher installed.
    
 1. Inside a blank folder, get the code for this exercise by using the Composer `create-project` command.
 
    ```
-   composer create-project --prefer-dist playground-sessions/code-exercise .
+   composer create-project --prefer-dist playground-sessions/php-code-exercise .
    ```
 
 1. Run docker compose, to create and run all the docker containers in this environment.
