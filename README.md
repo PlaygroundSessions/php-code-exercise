@@ -83,147 +83,19 @@ Email ben@playgroundsessions.com with a link to your git repository.
 ## Getting Started
 
 For your convenience,
-we provide two approaches to quickly setup a fully operational development environment with php8.0-fpm, nginx, and mysql8.
-- Docker for Windows or MacOS
-- Ansible for Linux
+we provide several approaches to quickly set up a fully operational development environment
+with PHP 8.0 and MySQL 8.
+- [Docker for Windows](readme/docker-windows.md)
+- [Docker for MacOS](readme/docker-macos.md)
+- [Ansible for Linux](readme/ansible-linux.md)
+- [Do It Yourself](readme/diy.md)
 
-Feel free to reach out with questions about setting up this environment.
+We recommend one of the two Docker approaches.
+However, another approach might be easier for you, if you are not familiar with Docker.
+- *Ansible for Linux* might be easier, if you have a fresh installation of Ubuntu 20.04 on a VM.
+- *Do It Yourself* might be easier, if you like sharing your development environment between projects.
 
-### Docker for Windows, with PowerShell
-
-1. Ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop) installed.
-   
-1. Inside a blank folder, get the code for this exercise by using the Composer `create-project` command.
-
-   ```
-   docker run --rm --volume ${pwd}:/app composer create-project --prefer-dist playground-sessions/code-exercise .
-   ```
-   
-1. Remove the `vendor\bin` directory, to avoid some weird, Windows-specific, symlink bugs.  (Don't worry, we will recreate these later.)
-   ```
-   rm -r vendor/bin
-   ```
-
-1. Run docker compose, to create and run all the docker containers in this environment.
-   
-   Make sure that any services (eg. Apache, Nginx, etc.) which normally listen
-   on ports 80, 443, 3306, 6379, or 9000 are not running.
-   ```
-   docker-compose up -d --build
-   ```
-   
-1. Recreate your `vendor\bin` folder.
-   ```
-   docker run --rm --volume ${pwd}:/app composer install
-   ```
-
-1. You should now see the text `Lumen (8.2.1) (Laravel Components ^8.0)` at [http://localhost](http://localhost)
-
-1. Initialize a git repository, and create an initial commit.
-
-1. It should take about 2 seconds to load [http://localhost/student-progress/1](http://localhost/student-progress/1)
-
-1. The development environment is all set up!
-
-FAQs
-
-1. How do I reset this docker setup, without losing any of my code?
-    1. Stop and remove all the containers in this project.
-   ```
-   docker-compose down
-   ```
-    1. Remove symlinks, rebuild containers, and rebuild symlinks.
-   ```
-   rm -r vendor/bin
-   docker-compose up -d --build
-   docker run --rm --volume ${pwd}:/app composer install
-   ```
-
-1. How do I run vendor binaries, like phpunit?
-   You can run vendor binaries like phpunit within the container.
-   ```
-   docker exec -it app-php /application/vendor/bin/phpunit
-   ```
-   To execute another binary, replace "phpunit" with the name of the binary.
-
-### Docker for MacOS
-
-1. Ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop) installed.
-   
-1. Inside a blank directory, get the code for this exercise by using the Composer `create-project` command.
-   ```
-   docker run --rm --volume $pwd:/app composer create-project --prefer-dist playground-sessions/code-exercise .
-   ```
-
-1. Run docker compose, from the root of the new `my-exercise` folder.
-
-   Make sure that any services (eg. Apache, Nginx, etc.) which normally listen
-   on ports 80, 443, 3306, 6379, or 9000 are not running.
-   ```
-   docker-compose up -d --build
-   ``` 
-
-1. You should now see the text `Lumen (8.2.1) (Laravel Components ^8.0)` at [http://localhost](http://localhost)
-
-1. Initialize a git repository, and create an initial commit.
-
-1. It should take about 2 seconds to load [http://localhost/student-progress/1](http://localhost/student-progress/1)
-
-1. The development environment is all set up!
-
-FAQs
-
-1. How do I reset this docker setup, without losing any of my code?
-    1. Stop and remove all the containers in this project.
-   ```
-   docker-compose down
-   ```
-    1. Rebuild containers.
-   ```
-   docker-compose up -d --build
-   ```
-
-1. How do I run vendor binaries, like phpunit?
-   You can run vendor binaries like phpunit within the container.
-   ```
-   docker exec -it app-php /application/vendor/bin/phpunit
-   ```
-   To execute another binary, replace "phpunit" with the name of the binary.
-   
-### Ansible for Linux
-
-These instructions are created for use with a fresh installation of Ubuntu 20.04.
-
-1. Install ansible and composer.
-   ```
-   sudo apt install ansible composer
-   ```
-   
-1. Inside a blank directory, get the code for this exercise by using the Composer `create-project` command.
-   ```
-   composer create-project --prefer-dist playground-sessions/code-exercise .   
-   ```
-   
-1. Run the playbook.
-   ```
-   ansible-playbook ansible/setup-development-environment --ask-become-pass
-   ```
-   When asked, enter the password for sudo.
-
-1. You can serve the project locally, using the built-in PHP development server.
-   ```
-   php -S localhost:8000 -t public
-   ```
-
-1. You should now see the text `Lumen (8.2.1) (Laravel Components ^8.0)` at [http://localhost:8000](http://localhost:8000)
-
-1. Initialize a git repository, and create an initial commit.
-
-1. It should take about 2 seconds to load [http://localhost:8000/student-progress/1](http://localhost:8000/student-progress/1)
-
-1. The development environment is all set up!
-
-[Do It Yourself](readme/diy.md)
+Feel free to reach out with questions about setting up your environment.
 
 ### Additional Information
 
