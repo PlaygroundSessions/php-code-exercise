@@ -3,10 +3,10 @@
 ## Scenario
 Take this hypothetical situation.
 
-We are making an app for teachers.
+We are making an iOS and Android app for teachers.
 A teacher will select a student to see all lessons, and whether that student completed each lesson.
 
-The apps will get their data from the JSON REST API endpoint:
+Each app will get its data from the JSON REST API endpoint:
 
 ```
 /student-progress/{userId}
@@ -21,7 +21,7 @@ You remember how the data is structured in the database:
 - A user can create practice records for a segment.
 
 You look over the codebase and realize that several problems exist in this endpoint.
-1. The front-end data structures is coupled to the database structure.
+1. The front-end data structures are coupled to the database structure.
 1. Business rules (eg. whether a user has completed a lesson) would be duplicated by each app.
 1. It is too slow, even with a reasonable amount of practice records.
 
@@ -72,7 +72,7 @@ If you have a particular strength (say documenting APIs), feel free show it off.
 You might benefit from knowing that each of the 3 problems can be solved without 
 needing to pre-calculate or cache results beforehand.
 
-Like any other business request, there may be an edge case you encounter which could use some additional clarity
+Like any other business request, you might encounter the need for some additional clarity
 or maybe you are thinking about a particular approach, and you want some feedback.  Communication is key to good code.
 Feel free to ask.
 
