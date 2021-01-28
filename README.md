@@ -102,6 +102,8 @@ Feel free to reach out with questions about setting up your environment.
 Your MySQL credentials have been randomized during the `create-project` process.  Should you want them, 
 they are inside the `.env` file in the root folder.
 
+If you used Docker or Ansible, the root mysql password is the same as the playground mysql user. 
+
 ## Go!
 
 We look forward to seeing your code! 
