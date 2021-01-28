@@ -33,25 +33,27 @@ class PracticeRecordFactory extends Factory
     }
 
     /**
-     * Get a score between 0 and 100.
-     * There is about a 33% probability that a practice record will have any of the following
-     * - A perfect score
-     * - A passing score
-     * - A failing score
+     * Get a score between 0 and 100, with a hard-coded probability
+     * - A perfect score -  ~1% of practice records
+     * - A passing score -  ~9% of practice records
+     * - A failing score - ~90% of practice records
      */
     private static function getScore(): int
     {
-        /** Polymorphism would be overkill right now */
-        return match(rand(0, 2)) {
-            0 => self::getFailingScore(),
-            1 => self::getPassingScore(),
-            2 => self::getPerfectScore(),
-        };
+        $weight = rand(1, 100);
+
+        if ($weight == 1) {
+            return self::getPerfectScore();
+        } else if ($weight < 10) {
+            return self::getPassingScore();
+        } else {
+            return self::getFailingScore();
+        }
     }
 
     private static function getPassingScore(): int
     {
-        return rand(80, 100);
+        return rand(80, self::getPerfectScore());
     }
 
     private static function getFailingScore(): int
