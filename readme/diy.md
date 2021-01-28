@@ -35,4 +35,4 @@ These instructions assume you already have PHP, Composer, and MySQL installed.
 
 1. It should take about 2 seconds to load [http://localhost:8000/student-progress/1](http://localhost:8000/student-progress/1)
 
-1. The development environment is all set up!
+1. Read the rest of the [README.md](../README.md).  Your development environment is all set up!

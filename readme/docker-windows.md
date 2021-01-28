@@ -37,7 +37,7 @@ This is the recommended approach to set up your development environment if you u
 
 1. It should take about 2 seconds to load [http://localhost/student-progress/1](http://localhost/student-progress/1)
 
-1. The development environment is all set up!
+1. Read the rest of the [README.md](../README.md).  Your development environment is all set up!
 
 #### FAQs
 
