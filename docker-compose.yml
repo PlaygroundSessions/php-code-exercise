@@ -61,6 +61,7 @@ services:
       - app-network
     healthcheck:
       test: mysqladmin ping -h localhost -p$$MYSQL_ROOT_PASSWORD && test '0' -eq $$(ps aux | awk '{print $$11}' | grep -c -e '^mysql$$')
+    command: mysqld --general-log=1 --general-log-file=/application/mysql-general.log
 
   app-redis:
     image: redis
