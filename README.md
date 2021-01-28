@@ -46,8 +46,7 @@ Solve all three problems with this codebase.
 
 - Create a separate data structure for the response.
 - Codify the business rules.
-  - A lesson is considered complete if a user has at least one practice record
-with a score of 80%. (This is kind of odd, but it keeps the complexity of the exercise down.)
+  - A lesson is considered complete if each segment has at least one practice record with a score of 80% or more.
   - Difficulty categories ("Rookie", "Intermediate", "Advanced") are associated with difficulty numbers
     [1,2,3], [4,5,6], [7,8,9], respectively.
 - Ensure the response time is under 100ms for the given dataset.  Right now it responds in about 2 seconds.
