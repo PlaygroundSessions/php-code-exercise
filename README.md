@@ -47,7 +47,8 @@ Solve all three problems with this codebase.
 - Create a separate data structure for the response.
 - Codify the business rules.
   - A lesson is considered complete if a user has at least one practice record
-with a score of 80%.
+with a score of 80%. (This is kind of odd, but it keeps the complexity of the exercise down.)
+  - Score for a practice record is (qtyCorrectlyPlayedNotes / (qtyIncorrectlyPlayedNotes + qtyAvailableNotes))
   - Difficulty categories ("Rookie", "Intermediate", "Advanced") are associated with difficulty numbers
     [1,2,3], [4,5,6], [7,8,9], respectively.
 - Ensure the response time is under 100ms for the given dataset.  Right now it responds in about 2 seconds.
@@ -69,12 +70,7 @@ Try to commit often and with small changes, so we can see what you are doing.
 
 If you have a particular strength (say documenting APIs), feel free show it off.
 
-You might benefit from knowing that each of the 3 problems can be solved without 
-needing to pre-calculate or cache results beforehand.
-
-Like any other business request, you might encounter the need for some additional clarity
-or maybe you are thinking about a particular approach, and you want some feedback.  Communication is key to good code.
-Feel free to ask.
+You might benefit from knowing that all 3 problems can be solved without use of a cache.
 
 ## Deliverables
 
