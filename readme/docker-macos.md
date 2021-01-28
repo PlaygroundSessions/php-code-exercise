@@ -8,7 +8,7 @@ This is the recommended approach to set up your development environment if you h
    
 1. Inside a blank directory, get the code for this exercise by using the Composer `create-project` command.
    ```
-   docker run --rm --volume $pwd:/app composer create-project --prefer-dist playground-sessions/php-code-exercise .
+   docker run --rm --volume $PWD:/app composer create-project --prefer-dist playground-sessions/php-code-exercise .
    ```
 
 1. Run docker compose, to create and run all the docker containers in this environment.
