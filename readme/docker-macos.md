@@ -45,3 +45,8 @@ This is the recommended approach to set up your development environment if you h
    docker exec -it app-php /application/vendor/bin/phpunit
    ```
    To execute another binary, replace "phpunit" with the name of the binary.
+
+   Should you want to run artisan commands, you can do so in the same way.
+   ```
+   docker exec -it app-php php artisan ...
+   ```

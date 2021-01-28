@@ -61,6 +61,11 @@ This is the recommended approach to set up your development environment if you u
    ```
    To execute another binary, replace "phpunit" with the name of the binary.
 
+   Should you want to run artisan commands, you can do so in the same way.
+   ```
+   docker exec -it app-php php artisan ...
+   ```
+
 1. Why can't I run vendor binaries from Windows?
    
    This is a result of the way NTFS handles symlinks.
