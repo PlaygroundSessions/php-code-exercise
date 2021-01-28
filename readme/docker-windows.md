@@ -21,7 +21,7 @@ This is the recommended approach to set up your development environment if you u
 1. Run docker compose, to create and run all the docker containers in this environment.
 
    Before running this command, make sure that any services (eg. Apache, Nginx, etc.) which normally listen
-   on ports 80, 443, 3306, 6379, or 9000 are not running.
+   on ports 80, 3306, 6379, or 9000 are not running.
    ```
    docker-compose up -d --build
    ```
