@@ -13,8 +13,5 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
-
+$router->get('/', fn() => $router->app->version());
 $router->get('/student-progress/{userId}', 'StudentProgressController@get');
