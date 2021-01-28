@@ -23,18 +23,44 @@ class PracticeRecordFactory extends Factory
      */
     public function definition()
     {
-        $qtyAvailableNotes = rand(3, 300);
-        $qtyCorrectlyPlayedNotes = rand(0, $qtyAvailableNotes);
-        $qtyIncorrectlyPlayedNotes = rand(0, 5000);
-
         return [
             'segment_id' => rand(1, SegmentSeeder::QTY),
             'user_id' => rand(1, UserSeeder::QTY),
             'session_uuid' => $this->faker->uuid,
             'tempo_multiplier' => $this->faker->randomFloat(2, 0.01, 1.2),
-            'qty_available_notes' => $qtyAvailableNotes,
-            'qty_correctly_played_notes' => $qtyCorrectlyPlayedNotes,
-            'qty_incorrectly_played_notes' => $qtyIncorrectlyPlayedNotes,
+            'score' => self::getScore(),
         ];
+    }
+
+    /**
+     * Get a score between 0 and 100.
+     * There is about a 33% probability that a practice record will have any of the following
+     * - A perfect score
+     * - A passing score
+     * - A failing score
+     */
+    private static function getScore(): int
+    {
+        /** Polymorphism would be overkill right now */
+        return match(rand(0, 2)) {
+            0 => self::getFailingScore(),
+            1 => self::getPassingScore(),
+            2 => self::getPerfectScore(),
+        };
+    }
+
+    private static function getPassingScore(): int
+    {
+        return rand(80, 100);
+    }
+
+    private static function getFailingScore(): int
+    {
+        return rand(0, 79);
+    }
+
+    private static function getPerfectScore(): int
+    {
+        return 100;
     }
 }

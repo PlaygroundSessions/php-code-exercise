@@ -66,8 +66,6 @@ class PracticeRecord extends Model
         'user_id',
         'session_uuid',
         'tempo_multiplier',
-        'qty_available_notes',
-        'qty_correctly_played_notes',
-        'qty_incorrectly_played_notes',
+        'score',
     ];
 }

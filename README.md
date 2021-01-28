@@ -48,7 +48,6 @@ Solve all three problems with this codebase.
 - Codify the business rules.
   - A lesson is considered complete if a user has at least one practice record
 with a score of 80%. (This is kind of odd, but it keeps the complexity of the exercise down.)
-  - Score for a practice record is (qtyCorrectlyPlayedNotes / (qtyIncorrectlyPlayedNotes + qtyAvailableNotes))
   - Difficulty categories ("Rookie", "Intermediate", "Advanced") are associated with difficulty numbers
     [1,2,3], [4,5,6], [7,8,9], respectively.
 - Ensure the response time is under 100ms for the given dataset.  Right now it responds in about 2 seconds.
