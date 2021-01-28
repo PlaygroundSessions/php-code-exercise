@@ -32,7 +32,7 @@
       apt_repository:
         repo: ppa:ondrej/php
 
-    - name: Ensure that PHP 8 with extensions and redis-server are installed
+    - name: Ensure that PHP 8 with extensions are installed
       apt:
         name: "{{packages}}"
       vars: # This performs all installations with one command, which is better than with_items
@@ -47,11 +47,9 @@
           - php8.0-mbstring
           - php8.0-mysql
           - php8.0-opcache
-          - php8.0-redis
           - php8.0-simplexml
           - php8.0-xml
           - php8.0-zip
-          - redis-server
 
     - name: Set startup services
       service:
@@ -60,4 +58,3 @@
         enabled: true
       with_items:
         - mysql
-        - redis-server
