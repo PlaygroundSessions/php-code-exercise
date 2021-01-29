@@ -30,49 +30,25 @@ it might be easier to use the [Do It Yourself](diy.md) approach, instead.
 
    Inside the Ubuntu VM, you should now be able to run the command `docker --version`.
 
-1. Remove the need to use `sudo` before other `docker` commands, in line with the Docker documentation for 
-   [post-install tasks on Linux](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
-
-   This is important to avoid permission errors with some log files.
-
-   Run these commands inside the Ubuntu VM.
-
-   1. Create the docker group.
-   ```
-   sudo groupadd docker
-   ```
-   
-   1. Add your user to the docker group.
-   ```
-   sudo usermod -aG docker $USER
-   ```
-
-   1. Activate the changes to groups by running this command, or opening a new terminal window.
-   ```
-   newgrp docker
-   ```
-   
-   1. Verify that you can run `docker` commands without sudo.
-   ```
-   docker run hello-world
-   ```
-   
-   If you don't see any errors, the verification was successful.
-
 1. Inside a new, blank folder, in the Ubuntu VM,
    get the code for this exercise by using the Composer `create-project` command.
 
    ```
-   docker run --rm --volume $PWD:/app composer create-project --prefer-dist playground-sessions/php-code-exercise .
+   sudo docker run --rm --volume $PWD:/app --user "$(id -u):$(id -g)" composer create-project --prefer-dist playground-sessions/php-code-exercise .
    ```
+
+   (The `--user` flag ensures that the files you get remain owned by you.)
 
 1. Run docker compose, inside the Ubuntu VM, to create and run all the docker containers in this environment.
 
    Before running this command, make sure that any services (eg. Apache, Nginx, etc.) which normally listen
    on ports 80, 3306, 6379, or 9000 are not running.
    ```
-   docker-compose up -d --build
+   sudo docker-compose build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g)
+   sudo docker-compose up -d
    ```
+   
+   (The `--build-arg` flags ensure that lumen logs can be written.)
 
 1. You should now see the text `Lumen (8.2.1) (Laravel Components ^8.0)` at [http://localhost](http://localhost)
 
@@ -96,11 +72,12 @@ it might be easier to use the [Do It Yourself](diy.md) approach, instead.
     
     1. Stop and remove all the containers in this project.
        ```
-       docker-compose down
+       sudo docker-compose down
        ```
-    1. Remove symlinks, rebuild containers, and rebuild symlinks.
+    1. Rebuild the containers.
        ```
-       docker-compose up -d --build
+       sudo docker-compose build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g)
+       sudo docker-compose up -d
        ```
 
 1. How do I run vendor binaries, like phpunit?
