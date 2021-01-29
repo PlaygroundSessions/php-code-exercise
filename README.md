@@ -49,7 +49,7 @@ Solve all three problems with this codebase.
   - A lesson is considered complete if each segment has at least one practice record with a score of 80% or more.
   - Difficulty categories ("Rookie", "Intermediate", "Advanced") are associated with difficulty numbers
     [1,2,3], [4,5,6], [7,8,9], respectively.
-- Ensure the response time is under 100ms for the given dataset.  Right now it responds in about 2 seconds.
+- Ensure the response time is under 500ms for the given dataset.  Right now the response time is about 2 seconds.
 
 Code should be clean.
 Code you write should follow the Single Responsibility Principle (SRP).
@@ -85,7 +85,8 @@ with PHP 8.0 and MySQL 8.
 - [Do It Yourself](readme/diy.md)
 
 We recommend one of the two Docker approaches.
-However, another approach might be easier for you, if you are not familiar with Docker.
+However, another approach might be easier for you, if you are not familiar with Docker,
+or you do not want to risk breaking your VirtualBox VMs.
 - *Ansible for Linux* might be easier, if you have a fresh installation of Ubuntu 20.04 on a VM.
 - *Do It Yourself* might be easier, if you like sharing your development environment between projects.
 
