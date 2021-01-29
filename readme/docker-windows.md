@@ -1,34 +1,77 @@
-### Docker for Windows, with PowerShell
+### Docker for Windows, with WSL2
 
 This is the recommended approach to set up your development environment if you use Windows.
+
+NOTE: If this seems like a lot,
+and you already have a non-Docker development environment that you share with other projects,
+it might be easier to use the [Do It Yourself](diy.md) approach, instead.
 
 ### Instructions
 
 1. Ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop) 3.1.0 or higher installed.
+   
    Allow the installer to take you through the process of using WSL2.
    
-1. Inside a blank folder, get the code for this exercise by using the Composer `create-project` command.
+   Afterward, the checkbox under `Settings > General > Use the WSL2 based engine` should be checked.
 
+1. Install [Ubuntu 20.04 LTS](https://www.microsoft.com/store/productId/9NBLGGH4MSV6) for WSL from the Microsoft Store.
+
+   When you need to run some commands inside the Ubuntu VM,
+   open the newly installed Ubuntu program.
+   
+   ![Ubuntu in the Windows start menu](open-terminal-to-ubuntu-on-wsl.jpg)
+
+   This will open a terminal inside the VM.
+   
+1. Enable Docker integration with the newly installed Ubuntu distribution.
+
+   Under Docker Desktop `Settings > Resources > WSL INTEGRATION > Enable integration with additional distros: > Ubuntu`
+   ensure the toggle is switched on.
+
+   Inside the Ubuntu VM, you should now be able to run the command `docker --version`.
+
+1. Remove the need to use `sudo` before other `docker` commands, in line with the Docker documentation for 
+   [post-install tasks on Linux](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
+
+   This is important to avoid permission errors with some log files.
+
+   Run these commands inside the Ubuntu VM.
+
+   1. Create the docker group.
    ```
-   docker run --rm --volume ${pwd}:/app composer create-project --prefer-dist playground-sessions/php-code-exercise .
+   sudo groupadd docker
    ```
    
-1. Remove the `vendor\bin` directory, to avoid some weird, Windows-specific, symlink issues.  (Don't worry, we will recreate these later.)
+   1. Add your user to the docker group.
    ```
-   rm -r vendor/bin
+   sudo usermod -aG docker $USER
    ```
 
-1. Run docker compose, to create and run all the docker containers in this environment.
+   1. Activate the changes to groups by running this command, or opening a new terminal window.
+   ```
+   newgrp docker
+   ```
+   
+   1. Verify that you can run `docker` commands without sudo.
+   ```
+   docker run hello-world
+   ```
+   
+   If you don't see any errors, the verification was successful.
+
+1. Inside a new, blank folder, in the Ubuntu VM,
+   get the code for this exercise by using the Composer `create-project` command.
+
+   ```
+   docker run --rm --volume $PWD:/app composer create-project --prefer-dist playground-sessions/php-code-exercise .
+   ```
+
+1. Run docker compose, inside the Ubuntu VM, to create and run all the docker containers in this environment.
 
    Before running this command, make sure that any services (eg. Apache, Nginx, etc.) which normally listen
    on ports 80, 3306, 6379, or 9000 are not running.
    ```
    docker-compose up -d --build
-   ```
-   
-1. Recreate your `vendor\bin` folder, by running `composer install` from the container.
-   ```
-   docker run --rm --volume ${pwd}:/app composer install
    ```
 
 1. You should now see the text `Lumen (8.2.1) (Laravel Components ^8.0)` at [http://localhost](http://localhost)
@@ -41,21 +84,30 @@ This is the recommended approach to set up your development environment if you u
 
 #### FAQs
 
+1. How do I edit these files from Windows?
+   
+   You can see these files from the Windows File Explorer at `\\wsl$\Ubuntu\home\pg\`.
+   
+   You can open any folder/file from this path, using your favorite code editor.
+
 1. How do I reset this docker setup, without losing any of my code?
+   
+    Run the following commands inside the Ubuntu VM.
+    
     1. Stop and remove all the containers in this project.
        ```
        docker-compose down
        ```
     1. Remove symlinks, rebuild containers, and rebuild symlinks.
        ```
-       rm -r vendor/bin
        docker-compose up -d --build
-       docker run --rm --volume ${pwd}:/app composer install
        ```
 
 1. How do I run vendor binaries, like phpunit?
    
-   You can run vendor binaries like phpunit within the container.
+   You can run vendor binaries like phpunit within the `app-php` container.
+   
+   These commands may be run from Windows PowerShell or from the Ubuntu VM.
    ```
    docker exec -it app-php /application/vendor/bin/phpunit
    ```
@@ -65,11 +117,3 @@ This is the recommended approach to set up your development environment if you u
    ```
    docker exec -it app-php php artisan ...
    ```
-
-1. Why can't I run vendor binaries from Windows?
-   
-   This is a result of the way NTFS handles symlinks.
-   
-   If you really want to do this,
-   you can use the [alternate docker setup](alternative-docker.md).
-   You will be able to run vendor binaries from both Windows and Docker containers, with that approach.
