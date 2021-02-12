@@ -33,8 +33,8 @@ You all agree to the following data structure for the response:
   "lessons": [
     {
       "id": 32,
-      "difficulty": "Rookie"
-      "isComplete": true,
+      "difficulty": "Rookie",
+      "isComplete": true
     }
   ]
 }
