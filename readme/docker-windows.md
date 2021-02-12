@@ -44,8 +44,7 @@ it might be easier to use the [Do It Yourself](diy.md) approach, instead.
    Before running this command, make sure that any services (eg. Apache, Nginx, etc.) which normally listen
    on ports 80, 3306, 6379, or 9000 are not running.
    ```
-   sudo docker-compose build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g)
-   sudo docker-compose up -d
+   sudo docker-compose up -d --build
    ```
    
    (The `--build-arg` flags ensure that lumen logs can be written.)
@@ -68,17 +67,12 @@ it might be easier to use the [Do It Yourself](diy.md) approach, instead.
 
 1. How do I reset this docker setup, without losing any of my code?
    
-    Run the following commands inside the Ubuntu VM.
-    
-    1. Stop and remove all the containers in this project.
-       ```
-       sudo docker-compose down
-       ```
-    1. Rebuild the containers.
-       ```
-       sudo docker-compose build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g)
-       sudo docker-compose up -d
-       ```
+   Run the following commands inside the Ubuntu VM.
+   This will stop and remove all the containers in this project, and rebuild the containers.
+   ```
+   sudo docker-compose down
+   sudo docker-compose up -d --build
+   ```
 
 1. How do I run vendor binaries, like phpunit?
    

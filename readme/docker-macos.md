@@ -30,13 +30,12 @@ This is the recommended approach to set up your development environment if you h
 ### FAQs
 
 1. How do I reset this docker setup, without losing any of my code?
-    1. Stop and remove all the containers in this project.
+
+   Run the following commands inside the Ubuntu VM.
+   This will stop and remove all the containers in this project, and rebuild the containers.
    ```
-   docker-compose down
-   ```
-    1. Rebuild containers.
-   ```
-   docker-compose up -d --build
+   sudo docker-compose down
+   sudo docker-compose up -d --build
    ```
 
 1. How do I run vendor binaries, like phpunit?
