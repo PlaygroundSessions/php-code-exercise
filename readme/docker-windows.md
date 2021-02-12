@@ -61,7 +61,8 @@ it might be easier to use the [Do It Yourself](diy.md) approach, instead.
 
 1. How do I edit these files from Windows?
    
-   You can see these files from the Windows File Explorer at `\\wsl$\Ubuntu\home\pg\`.
+   You can see these files from the Windows File Explorer at `\\wsl$\Ubuntu\home\<your-user>\`, where `<your-user>`
+   is the username that you used when you set up Ubuntu.
    
    You can open any folder/file from this path, using your favorite code editor.
 
