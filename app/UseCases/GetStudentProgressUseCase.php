@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\UseCases;
 
 use App\UseCases\DependencyInterfaces\LessonCsvInterface;
+use App\UseCases\DependencyInterfaces\LessonCsvRowInterface;
 use App\ViewModels\GetStudentProgress\LessonResponse;
 use App\ViewModels\GetStudentProgress\PracticeRecord;
 use App\ViewModels\GetStudentProgress\Segment;
@@ -31,19 +32,19 @@ class GetStudentProgressUseCase
                 continue;
             }
 
-            $practiceRecordsForCurrentSegment[] = PracticeRecord::createPracticeRecordFromRow($currentRow);
+            $practiceRecordsForCurrentSegment[] = self::createPracticeRecordFromRow($currentRow);
 
             $isNewSegment = $nextRow->getSegmentOrder() !== $currentSegmentId;
 
             if ($isNewSegment) {
-                $segmentsForCurrentLesson[] = Segment::getSegmentFromRow($currentRow, $practiceRecordsForCurrentSegment);
+                $segmentsForCurrentLesson[] = self::getSegmentFromRow($currentRow, $practiceRecordsForCurrentSegment);
                 $practiceRecordsForCurrentSegment = [];
             }
 
             $isNewLesson = $nextRow->getLessonId() !== $currentLessonId;
 
             if ($isNewLesson) {
-                $lessons[] = LessonResponse::createLessonResponseFromRow($currentRow, $segmentsForCurrentLesson);
+                $lessons[] = self::createLessonResponseFromRow($currentRow, $segmentsForCurrentLesson);
                 $segmentsForCurrentLesson = [];
             }
 
@@ -51,5 +52,46 @@ class GetStudentProgressUseCase
         }
 
         return $lessons;
+    }
+
+    public static function createLessonResponseFromRow(LessonCsvRowInterface $row, array $segments): LessonResponse
+    {
+        return new LessonResponse(
+            id: $row->getLessonId(),
+            name: $row->getLessonName(),
+            description: $row->getLessonDescription(),
+            difficulty: $row->getLessonDifficulty(),
+            createdAt: $row->getLessonCreatedAt(),
+            updatedAt: $row->getLessonUpdatedAt(),
+            isPublished: $row->isLessonPublished(),
+            segments: $segments,
+        );
+    }
+
+    public static function getSegmentFromRow(LessonCsvRowInterface $row, array $practiceRecords): Segment
+    {
+        return new Segment(
+            id: $row->getSegmentId(),
+            lessonId: $row->getSegmentLessonId(),
+            name: $row->getSegmentName(),
+            order: $row->getSegmentOrder(),
+            createdAt: $row->getSegmentCreatedAt(),
+            updatedAt: $row->getSegmentUpdatedAt(),
+            practiceRecords: $practiceRecords,
+        );
+    }
+
+    public static function createPracticeRecordFromRow(LessonCsvRowInterface $row): PracticeRecord
+    {
+        return new PracticeRecord(
+            id: $row->getPracticeRecordId(),
+            segmentId: $row->getPracticeRecordSegmentId(),
+            userId: $row->getPracticeRecordUserId(),
+            sessionUuid: $row->getPracticeRecordSessionUuid(),
+            tempoMultiplier: $row->getPracticeRecordTempoMultiplier(),
+            createdAt: $row->getPracticeRecordCreatedAt(),
+            updatedAt: $row->getPracticeRecordUpdatedAt(),
+            score: $row->getPracticeRecordScore(),
+        );
     }
 }

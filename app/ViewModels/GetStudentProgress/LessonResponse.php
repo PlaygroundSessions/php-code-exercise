@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace App\ViewModels\GetStudentProgress;
 
-use App\ViewModels\LessonCsv\LessonCsvRow;
-
 class LessonResponse implements \IteratorAggregate
 {
     public array $segments;
@@ -28,20 +26,6 @@ class LessonResponse implements \IteratorAggregate
     private function addSegment(Segment $segment): void
     {
         $this->segments[] = $segment;
-    }
-
-    public static function createLessonResponseFromRow(LessonCsvRow $row, array $segments): LessonResponse
-    {
-        return new LessonResponse(
-            id: $row->getLessonId(),
-            name: $row->getLessonName(),
-            description: $row->getLessonDescription(),
-            difficulty: $row->getLessonDifficulty(),
-            createdAt: $row->getLessonCreatedAt(),
-            updatedAt: $row->getLessonUpdatedAt(),
-            isPublished: $row->isLessonPublished(),
-            segments: $segments,
-        );
     }
 
     public function getIterator()

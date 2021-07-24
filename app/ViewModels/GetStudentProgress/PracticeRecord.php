@@ -20,17 +20,4 @@ class PracticeRecord
     {
     }
 
-    public static function createPracticeRecordFromRow(LessonCsvRowInterface $row): PracticeRecord
-    {
-        return new PracticeRecord(
-            id: $row->getPracticeRecordId(),
-            segmentId: $row->getPracticeRecordSegmentId(),
-            userId: $row->getPracticeRecordUserId(),
-            sessionUuid: $row->getPracticeRecordSessionUuid(),
-            tempoMultiplier: $row->getPracticeRecordTempoMultiplier(),
-            createdAt: $row->getPracticeRecordCreatedAt(),
-            updatedAt: $row->getPracticeRecordUpdatedAt(),
-            score: $row->getPracticeRecordScore(),
-        );
-    }
 }

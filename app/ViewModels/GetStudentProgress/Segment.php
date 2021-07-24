@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace App\ViewModels\GetStudentProgress;
 
-use App\UseCases\DependencyInterfaces\LessonCsvRowInterface;
-
 class Segment
 {
     public function __construct(
@@ -25,18 +23,5 @@ class Segment
     private function addPracticeRecord(PracticeRecord $practiceRecord): void
     {
         $this->practiceRecords[] = $practiceRecord;
-    }
-
-    public static function getSegmentFromRow(LessonCsvRowInterface $row, array $practiceRecords): Segment
-    {
-        return new Segment(
-            id: $row->getSegmentId(),
-            lessonId: $row->getSegmentLessonId(),
-            name: $row->getSegmentName(),
-            order: $row->getSegmentOrder(),
-            createdAt: $row->getSegmentCreatedAt(),
-            updatedAt: $row->getSegmentUpdatedAt(),
-            practiceRecords: $practiceRecords,
-        );
     }
 }
