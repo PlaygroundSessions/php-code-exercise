@@ -43,16 +43,14 @@ class GetStudentProgressUseCase
 
             $practiceRecords[] = self::createPracticeRecordFromRow($previousRow);
 
-            if (!$isSameSegment && $isSameLesson) {
+            if (!$isSameSegment) {
                 $segments[] = self::createSegmentFromRow($previousRow, $practiceRecords ?? []);
                 $practiceRecords = [];
             }
 
             if (!$isSameLesson) {
-                $segments[] = self::createSegmentFromRow($previousRow, $practiceRecords);
                 $lessons[] = self::createLessonResponseFromRow($previousRow, $segments ?? []);
                 $segments = [];
-                $practiceRecords = [];
             }
 
             $secondToLastRow = $previousRow ?? null;
