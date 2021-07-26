@@ -5,6 +5,7 @@ namespace App\ViewModels\GetStudentProgress;
 
 class Segment
 {
+    /** @param PracticeRecord[] $practiceRecords */
     public function __construct(
         public int $id,
         public int $lessonId,
@@ -15,13 +16,5 @@ class Segment
         public array $practiceRecords,
     )
     {
-        foreach ($practiceRecords as $practiceRecord) {
-            $this->addPracticeRecord($practiceRecord);
-        }
-    }
-
-    private function addPracticeRecord(PracticeRecord $practiceRecord): void
-    {
-        $this->practiceRecords[] = $practiceRecord;
     }
 }

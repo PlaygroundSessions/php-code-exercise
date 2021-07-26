@@ -18,40 +18,102 @@ class GetStudentProgressUseCase
     /** @return \App\ViewModels\GetStudentProgress\LessonResponse[] */
     public function getAllLessons(int $userId): array
     {
-        $lessons = [];
-        $currentLessonId = 0;
-        $currentSegmentId = 0;
-        $currentRow = $this->csv->getNextRow();
-        $practiceRecordsForCurrentSegment = [];
-        $segmentsForCurrentLesson = [];
+        $previousRow = null;
+        $secondToLastRow = null;
 
-        while ($nextRow = $this->csv->getNextRow()) {
-            $isForCurrentUser = $nextRow->getPracticeRecordUserId() === $userId;
+        /** @var LessonResponse[] $lessons */
+        $lessons = [];
+        $segments = [];
+        $practiceRecords = [];
+
+        while ($currentRow = $this->csv->getNextRow()) {
+            $isForCurrentUser = $currentRow->getPracticeRecordUserId() === $userId;
 
             if (!$isForCurrentUser) {
                 continue;
             }
 
-            $practiceRecordsForCurrentSegment[] = self::createPracticeRecordFromRow($currentRow);
-
-            $isNewSegment = $nextRow->getSegmentOrder() !== $currentSegmentId;
-
-            if ($isNewSegment) {
-                $segmentsForCurrentLesson[] = self::getSegmentFromRow($currentRow, $practiceRecordsForCurrentSegment);
-                $practiceRecordsForCurrentSegment = [];
+            if (is_null($previousRow)) {
+                $previousRow = $currentRow;
+                continue;
             }
 
-            $isNewLesson = $nextRow->getLessonId() !== $currentLessonId;
+            $isSameLesson = self::isRowForLessonId($currentRow, $previousRow->getLessonId());
+            $isSameSegment = self::isRowForSegmentId($currentRow, $previousRow->getSegmentId());
 
-            if ($isNewLesson) {
-                $lessons[] = self::createLessonResponseFromRow($currentRow, $segmentsForCurrentLesson);
-                $segmentsForCurrentLesson = [];
+            $practiceRecords[] = self::createPracticeRecordFromRow($previousRow);
+
+            if (!$isSameSegment && $isSameLesson) {
+                $segments[] = self::createSegmentFromRow($previousRow, $practiceRecords ?? []);
+                $practiceRecords = [];
             }
 
-            $currentRow = $nextRow;
+            if (!$isSameLesson) {
+                $segments[] = self::createSegmentFromRow($previousRow, $practiceRecords);
+                $lessons[] = self::createLessonResponseFromRow($previousRow, $segments ?? []);
+                $segments = [];
+                $practiceRecords = [];
+            }
+
+            $secondToLastRow = $previousRow ?? null;
+            $previousRow = $currentRow;
+        }
+
+        $isZeroRows = is_null($previousRow);
+
+        if ($isZeroRows) {
+            return [];
+        }
+
+        $lastRow = $previousRow;
+
+        $isOnlyOneRow = is_null($secondToLastRow);
+
+        if ($isOnlyOneRow) {
+            $practiceRecord = self::createPracticeRecordFromRow($lastRow);
+            $segment = self::createSegmentFromRow($lastRow, [$practiceRecord]);
+            return [self::createLessonResponseFromRow($lastRow, [$segment])];
+        }
+
+        $isTheLastRowForTheSameSegmentAsItsPreviousRow = self::isForSameSegment($lastRow, $secondToLastRow);
+
+        if ($isTheLastRowForTheSameSegmentAsItsPreviousRow) {
+            $practiceRecords[] = self::createPracticeRecordFromRow($lastRow);
+            $segments[] = self::createSegmentFromRow($lastRow, $practiceRecords);
+            $lessons[] = self::createLessonResponseFromRow($lastRow, $segments);
+        } else {
+            if (self::isForSameLesson($lastRow, $secondToLastRow)) {
+                $practiceRecord = self::createPracticeRecordFromRow($lastRow);
+                $segments[] = self::createSegmentFromRow($lastRow, [$practiceRecord]);
+                $lessons[] = self::createLessonResponseFromRow($lastRow, $segments);
+            } else {
+                $practiceRecord = self::createPracticeRecordFromRow($lastRow);
+                $segment = self::createSegmentFromRow($lastRow, [$practiceRecord]);
+                $lessons[] = self::createLessonResponseFromRow($lastRow, [$segment]);
+            }
         }
 
         return $lessons;
+    }
+
+    public static function isRowForLessonId(LessonCsvRowInterface $row, int $lessonId): bool
+    {
+        return $row->getLessonId() === $lessonId;
+    }
+
+    public static function isRowForSegmentId(LessonCsvRowInterface $row, int $segmentId): bool
+    {
+        return $row->getSegmentId() === $segmentId;
+    }
+
+    public static function isForSameLesson(LessonCsvRowInterface $rowA, LessonCsvRowInterface $rowB): bool
+    {
+        return $rowA->getLessonId() === $rowB->getLessonId();
+    }
+
+    public static function isForSameSegment(LessonCsvRowInterface $rowA, LessonCsvRowInterface $rowB): bool
+    {
+        return $rowA->getSegmentId() === $rowB->getSegmentId();
     }
 
     public static function createLessonResponseFromRow(LessonCsvRowInterface $row, array $segments): LessonResponse
@@ -68,7 +130,7 @@ class GetStudentProgressUseCase
         );
     }
 
-    public static function getSegmentFromRow(LessonCsvRowInterface $row, array $practiceRecords): Segment
+    public static function createSegmentFromRow(LessonCsvRowInterface $row, array $practiceRecords): Segment
     {
         return new Segment(
             id: $row->getSegmentId(),
