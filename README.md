@@ -47,7 +47,7 @@ Solve all problems with this codebase.
   - A lesson is complete if each segment has at least one practice record with a score of 80% or more.
   - Difficulty categories ("Rookie", "Intermediate", "Advanced") are associated with difficulty numbers
     [1,2,3], [4,5,6], [7,8,9], respectively.
-- Ensure the response time for user id 1 is under 250ms for the given dataset.
+- Ensure the response time for user id 1 is under 500ms for the given dataset.
   Right now the response time is about 2 seconds.
 
 Code should be cleanly written in self-contained parts, each having one responsibility,
