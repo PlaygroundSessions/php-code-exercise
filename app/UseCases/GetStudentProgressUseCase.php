@@ -67,26 +67,25 @@ class GetStudentProgressUseCase
 
         $isOnlyOneRow = is_null($secondToLastRow);
 
+        $lastPracticeRecord = self::createPracticeRecordFromRow($lastRow);
+
         if ($isOnlyOneRow) {
-            $practiceRecord = self::createPracticeRecordFromRow($lastRow);
-            $segment = self::createSegmentFromRow($lastRow, [$practiceRecord]);
+            $segment = self::createSegmentFromRow($lastRow, [$lastPracticeRecord]);
             return [self::createLessonResponseFromRow($lastRow, [$segment])];
         }
 
         $isTheLastRowForTheSameSegmentAsItsPreviousRow = self::isForSameSegment($lastRow, $secondToLastRow);
 
         if ($isTheLastRowForTheSameSegmentAsItsPreviousRow) {
-            $practiceRecords[] = self::createPracticeRecordFromRow($lastRow);
+            $practiceRecords[] = $lastPracticeRecord;
             $segments[] = self::createSegmentFromRow($lastRow, $practiceRecords);
             $lessons[] = self::createLessonResponseFromRow($lastRow, $segments);
         } else {
             if (self::isForSameLesson($lastRow, $secondToLastRow)) {
-                $practiceRecord = self::createPracticeRecordFromRow($lastRow);
-                $segments[] = self::createSegmentFromRow($lastRow, [$practiceRecord]);
+                $segments[] = self::createSegmentFromRow($lastRow, [$lastPracticeRecord]);
                 $lessons[] = self::createLessonResponseFromRow($lastRow, $segments);
             } else {
-                $practiceRecord = self::createPracticeRecordFromRow($lastRow);
-                $segment = self::createSegmentFromRow($lastRow, [$practiceRecord]);
+                $segment = self::createSegmentFromRow($lastRow, [$lastPracticeRecord]);
                 $lessons[] = self::createLessonResponseFromRow($lastRow, [$segment]);
             }
         }
