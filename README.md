@@ -14,14 +14,13 @@ Each app will get its data from the JSON REST API endpoint:
 
 Where `{userId}` is the user id of the student.
 
-You inherit this WIP codebase.
+You inherit this codebase.
 
-You remember how the data is structured in the database:
-- Lessons are comprised of several segments.
+You remember how the data is structured:
+- Lessons contain several segments.
 - A user can create practice records for a segment.
 
 You look over the codebase and realize that several problems exist in this endpoint.
-1. The front-end data structures are coupled to the database structure.
 1. Business rules (eg. whether a user has completed a lesson) would be duplicated by each app.
 1. It is too slow, even with a reasonable amount of practice records.
 
@@ -42,25 +41,21 @@ You all agree to the following data structure for the response:
 
 ## Instructions
 
-Solve all three problems with this codebase.
-
-- Create a separate data structure for the response.
-- Codify the business rules.
-  - A lesson is considered complete if each segment has at least one practice record with a score of 80% or more.
+Solve all problems with this codebase.
+- Create a new data structure for the response.
+- Codify the following business rules.
+  - A lesson is complete if each segment has at least one practice record with a score of 80% or more.
   - Difficulty categories ("Rookie", "Intermediate", "Advanced") are associated with difficulty numbers
     [1,2,3], [4,5,6], [7,8,9], respectively.
-- Ensure the response time is under 500ms for the given dataset.  Right now the response time is about 2 seconds.
+- Ensure the response time for user id 1 is under 250ms for the given dataset.
+  Right now the response time is about 2 seconds.
 
-Code should be clean.
-Code you write should follow the Single Responsibility Principle (SRP).
-Code should be written in self-contained parts, each having one responsibility.
+Code should be cleanly written in self-contained parts, each having one responsibility,
+according to the Single Responsibility Principle (SRP).
 For example, application logic (eg. extracting query parameters from a URL)
-should be separate from business logic (eg. determining if a required query parameter was supplied).
+should be separate from business logic (eg. determining whether a lesson is complete).
 
-You have full reign over the codebase. You can add or remove any packages you like. 
-For example, you could use a different ORM, or even a different framework, if you think that would be quicker for you.
-
-Everything is fair game.
+You have full reign over the codebase. You can add or remove any packages you like. Everything is fair game.
 
 We are testing your ability to organize code cleanly, with SRP, not your knowledge of the Laravel/Lumen frameworks.
 
@@ -76,28 +71,9 @@ Email ben@playgroundsessions.com with a link to your git repository.
 
 ## Getting Started
 
-For your convenience,
-we provide several approaches to quickly set up a fully operational development environment
-with PHP 8.0 and MySQL 8.
-- [Docker for Windows](readme/docker-windows.md)
-- [Docker for MacOS](readme/docker-macos.md)
-- [Ansible for Linux](readme/ansible-linux.md)
-- [Do It Yourself](readme/diy.md)
-
-We recommend one of the two Docker approaches.
-However, another approach might be easier for you, if you are not familiar with Docker,
-or you do not want to risk breaking your VirtualBox VMs.
-- *Ansible for Linux* might be easier, if you have a fresh installation of Ubuntu 20.04 on a VM.
-- *Do It Yourself* might be easier, if you like sharing your development environment between projects.
-
-Feel free to reach out with questions about setting up your environment.
-
-### Additional Information
-
-Your MySQL credentials have been randomized during the `create-project` process.  Should you want them, 
-they are inside the `.env` file in the root folder.
-
-If you used Docker or Ansible, the root mysql password is the same as the playground mysql user. 
+Getting started is simple with PHP's built-in web server.
+1. Have PHP 8.0 installed.
+1. Follow the [Development Environment Setup](readme/built-in-php-server.md)
 
 ## Go!
 
